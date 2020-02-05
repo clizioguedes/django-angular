@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>List Movies</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of movies">
+        <th scope="row">{{movie.id}}</th>
+        <td>{{movie.title}}</td>
+        <td>{{movie.desc}}</td>
+        <td>{{movie.year}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form>
+    <div class="form-group">
+      <label for="moviename">Name Movie</label>
+      <input type="text" class="form-control" id="moviename" placeholder="Ex: Vingadores">
+    </div>
+
+    <div class="form-group">
+      <label for="desc">Description</label>
+      <textarea class="form-control" id="desc" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="year">Year</label>
+      <input type="text" class="form-control" id="year" placeholder="Ex: 2019">
+    </div>
+
+    <button type="button" class="btn btn-success">Create</button>
+    <button type="button" class="btn btn-primary">Update</button>
+    <button type="button" class="btn btn-warning">Delete</button>
+  </form>
+</div>

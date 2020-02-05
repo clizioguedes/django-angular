@@ -1,0 +1,123 @@
+<div class="container">
+  <h2>List Movies</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of movies">
+        <th scope="row">{{movie.id}}</th>
+        <td>{{movie.title}}</td>
+        <td>{{movie.desc}}</td>
+        <td>{{movie.year}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form>
+    <div class="form-group">
+      <label for="moviename">Name Movie</label>
+      <input type="text" class="form-control" id="moviename" placeholder="Ex: Vingadores">
+    </div>
+
+    <div class="form-group">
+      <label for="desc">Description</label>
+      <textarea class="form-control" id="desc" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="year">Year</label>
+      <input type="text" class="form-control" id="year" placeholder="Ex: 2019">
+    </div>
+
+    <button type="button" class="btn btn-success">Create</button>
+    <button type="button" class="btn btn-primary">Update</button>
+    <button type="button" class="btn btn-warning">Delete</button>
+  </form>
+</div>
+
+<hr>
+
+<div class="table-filmes">
+  <h2>List Movies </h2>
+
+  <div class="busca">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table 
+    mat-table 
+    [dataSource]="dataSource" 
+    matSort 
+    matSortActive="created" 
+    matSortDisableClear 
+    matSortDirection="desc">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element" (click)=movieClicked(element)> {{element.title}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="desc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="year">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Year </th>
+        <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator
+    #paginator 
+    [length]="resultsLength"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+</div>
+
+<div class="example-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="selectedMovie.title">
+    <mat-hint>Apenas letras</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="Description" [(ngModel)]="selectedMovie.desc">></textarea>
+    <mat-hint>240 caracteres</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Year</mat-label>
+    <input matInput type="number" placeholder="Year" [(ngModel)]="selectedMovie.year">
+    <mat-hint>Apenas letras</mat-hint>
+  </mat-form-field>
+
+  <div class="example-button-row">
+    <button mat-raised-button color="primary" (click)="createMovie()">Create</button>
+
+    <button mat-raised-button color="accent" *ngIf="selectedMovie != -1" (click)="updateMovie()">Update</button>
+
+    <button mat-raised-button color="warn" (click)="deleteMovie()">Delete</button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
