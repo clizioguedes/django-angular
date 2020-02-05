@@ -1,0 +1,5 @@
+python3 -m pip install Django
+pip install djangorestframework
+pip install markdown
+pip install django-filter
+pip install django-cors-headers
